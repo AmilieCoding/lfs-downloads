@@ -12,18 +12,19 @@ mkdir -p ~/src
 cd ~/src
 
 #########################
-# wayland
+# 1. Install wayland-server
 #########################
-echo "Installing wayland (core)..."
+echo "Installing wayland-server..."
 git clone https://gitlab.freedesktop.org/wayland/wayland.git
 cd wayland
+# The wayland-server component is inside the main Wayland repo, we need to build the server as well
 meson setup build --prefix=$PREFIX
 ninja -C build -j$NPROC
 ninja -C build install
 cd ..
 
 #########################
-# wayland-protocols
+# 2. Install wayland-protocols
 #########################
 echo "Installing wayland-protocols..."
 git clone https://gitlab.freedesktop.org/wayland/wayland-protocols.git
@@ -34,7 +35,7 @@ ninja -C build install
 cd ..
 
 #########################
-# pixman
+# 3. Install pixman
 #########################
 echo "Installing pixman..."
 git clone https://gitlab.freedesktop.org/pixman/pixman.git
@@ -45,7 +46,7 @@ ninja -C build install
 cd ..
 
 #########################
-# libliftoff
+# 4. Install libliftoff
 #########################
 echo "Installing libliftoff..."
 git clone https://gitlab.freedesktop.org/emersion/libliftoff.git
@@ -56,7 +57,7 @@ ninja -C build install
 cd ..
 
 #########################
-# libdisplay-info
+# 5. Install libdisplay-info
 #########################
 echo "Installing libdisplay-info..."
 git clone https://gitlab.freedesktop.org/emersion/libdisplay-info.git
@@ -67,7 +68,7 @@ ninja -C build install
 cd ..
 
 #########################
-# seatd
+# 6. Install seatd
 #########################
 echo "Installing seatd..."
 git clone https://git.sr.ht/~kennylevinsen/seatd
@@ -78,7 +79,7 @@ ninja -C build install
 cd ..
 
 #########################
-# wlroots
+# 7. Install wlroots
 #########################
 echo "Installing wlroots..."
 git clone https://gitlab.freedesktop.org/wlroots/wlroots.git
@@ -92,16 +93,14 @@ ninja -C build install
 cd ..
 
 #########################
-# swayfx
+# 8. Install swayfx
 #########################
 echo "Installing SwayFX..."
 git clone https://github.com/WillPower3309/swayfx.git
 cd swayfx
-meson setup build \
-  --prefix=$PREFIX \
-  -Dwarnings=false
+meson setup build --prefix=$PREFIX -Dwarnings=false
 ninja -C build -j$NPROC
 ninja -C build install
 cd ..
 
-echo "✅ Done! swayfx and all dependencies installed into $PREFIX"
+echo "✅ All components installed to $PREFIX. You can now run swayfx."
