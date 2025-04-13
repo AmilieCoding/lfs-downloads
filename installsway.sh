@@ -12,6 +12,28 @@ mkdir -p ~/src
 cd ~/src
 
 #########################
+# wayland
+#########################
+echo "Installing wayland (core)..."
+git clone https://gitlab.freedesktop.org/wayland/wayland.git
+cd wayland
+meson setup build --prefix=$PREFIX
+ninja -C build -j$NPROC
+ninja -C build install
+cd ..
+
+#########################
+# wayland-protocols
+#########################
+echo "Installing wayland-protocols..."
+git clone https://gitlab.freedesktop.org/wayland/wayland-protocols.git
+cd wayland-protocols
+meson setup build --prefix=$PREFIX
+ninja -C build -j$NPROC
+ninja -C build install
+cd ..
+
+#########################
 # pixman
 #########################
 echo "Installing pixman..."
